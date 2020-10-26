@@ -1,9 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from QInputEdit import QInputEdit
+from qinputedit import QInputEdit
 from fontMaterial import FontMaterial
-from QIconMaterial import QIconMaterial
+from qiconmaterial import QIconMaterial
 
-class CharField():
+class QCharField():
     def __init__(self, name_field=None, size_font=11, max_length=66, central=None, ud=None):
 
         self.name_field = name_field
@@ -69,7 +69,8 @@ class CharField():
         self.button_pass.setText("")
         self.button_pass.hide()
 
-        self.icon_eye = QIconMaterial("close-24px.svg").iconSVG()
+        self.icon_clear = QIconMaterial("close-24px.svg").iconSVG()
+        self.button_pass.setIcon(self.icon_clear)
         self.button_pass.setToolTip("Clear")
         self.button_pass.setObjectName(self.button_name)
         self.status = 0
@@ -92,11 +93,9 @@ class CharField():
 
     def showClear(self):
         if self.input_material.text() == "":
-            self.button_pass.setIcon(QtGui.QIcon())
             self.button_pass.hide()
         else:
             self.button_pass.show()
-            self.button_pass.setIcon(self.icon_eye)
 
     def clearChar(self):
         self.input_material.setText("")
@@ -104,7 +103,7 @@ class CharField():
         print("return input")
         self.button_pass.hide()
 
-class PasswordField():
+class QPasswordField():
 
     def __init__(self, name_field=None, size_font=11, max_length=66, central=None, ud=None):
         self.name_field = name_field
@@ -135,7 +134,7 @@ class PasswordField():
         self.label_validation.setObjectName(self.validation_name)
         self.label_validation.setText("error_message")
 
-        self.input_material = LineEdit(self.central)
+        self.input_material = QInputEdit(self.central)
         self.input_material.setGeometry(QtCore.QRect(80, self.ud, 181, 31))
         self.input_material.setFont(self.font_standart)
         self.input_material.setStyleSheet("""
@@ -148,7 +147,7 @@ class PasswordField():
             }
         """)
         self.input_material.setMaxLength(self.max_length)
-        self.input_material.setEchoMode(LineEdit.Password)
+        self.input_material.setEchoMode(QInputEdit.Password)
         self.input_material.setObjectName(self.input_name)
         self.input_material.focus_in_signal.connect(lambda: self.focus_in())
         self.input_material.focus_out_signal.connect(lambda: self.focus_out())
@@ -196,14 +195,14 @@ class PasswordField():
     def showPassword(self):
         if self.status == 1:
             self.status = 0
-            self.input_material.setEchoMode(LineEdit.Password)
+            self.input_material.setEchoMode(QInputEdit.Password)
             self.button_pass.setIcon(self.icon_eye)
             self.button_pass.setToolTip("Show Password")
             self.input_material.setFocus(True)
             self.input_material.setCursorPosition(len(self.input_material.text()));
         elif self.status == 0:
             self.status = 1
-            self.input_material.setEchoMode(LineEdit.Normal)
+            self.input_material.setEchoMode(QInputEdit.Normal)
             self.button_pass.setIcon(self.icon_no_eye)
             self.button_pass.setToolTip("Hidde Password")
             self.input_material.setFocus(True)
