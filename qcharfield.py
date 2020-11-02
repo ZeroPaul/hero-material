@@ -100,7 +100,6 @@ class QCharField():
     def clearChar(self):
         self.input_material.setText("")
         self.input_material.setFocus(True)
-        print("return input")
         self.button_pass.hide()
 
 class QPasswordField():
